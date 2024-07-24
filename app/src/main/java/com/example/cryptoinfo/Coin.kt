@@ -16,9 +16,13 @@ data class Coin(
     @SerializedName("low_24h")
     val low24h: Double,
     @SerializedName("price_change_24h")
-    val priceChange24h: Double
+    val priceChange24h: Double,
 )
 
 data class MarketChartResponse(
-    val prices: List<List<Double>>
+    val prices: List<List<Double>>,
+    @SerializedName("market_caps")
+    val marketCaps: List<List<Double>>,
+    @SerializedName("total_volumes")
+    val totalVolumes: List<List<Double>>,
 )
