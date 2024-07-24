@@ -59,6 +59,7 @@
                 android:text="@string/default_coin"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
+                android:textAllCaps="true"
                 app:layout_constraintBottom_toBottomOf="@+id/ivCoin"
                 app:layout_constraintStart_toEndOf="@+id/ivCoin"
                 app:layout_constraintTop_toTopOf="@+id/ivCoin" />
