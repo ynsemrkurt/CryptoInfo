@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class CoinViewModel : ViewModel() {
 
@@ -37,8 +38,16 @@ class CoinViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val charts = mutableMapOf<String, List<Pair<Float, Float>>>()
+                val now = System.currentTimeMillis() / 1000
+                val oneDayAgo = now - TimeUnit.DAYS.toSeconds(1)
+
                 for (coinId in coinIds) {
-                    val response = RetrofitInstance.coinApiService.getMarketChart(coinId, "usd", "1")
+                    val response = RetrofitInstance.coinApiService.getMarketChart(
+                        coinId,
+                        "usd",
+                        oneDayAgo.toInt(),
+                        now.toInt()
+                    )
                     val chartDataList = response.prices.map {
                         Pair(it[0].toFloat(), it[1].toFloat())
                     }
