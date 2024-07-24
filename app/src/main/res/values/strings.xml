@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Crypto Info</string>
+    <string name="unexpected_error">Unexpected Error: %1$s</string>
+    <string name="error">Error</string>
+    <string name="per_format">%1$s%%</string>
+    <string name="ok">OK</string>
+    <string name="default_dollars">$100</string>
+    <string name="default_coin">BTC</string>
+    <string name="default_per">+10%</string>
+    <string name="coin_symbol">Coin symbol</string>
+    <string name="search">Search</string>
 </resources>
