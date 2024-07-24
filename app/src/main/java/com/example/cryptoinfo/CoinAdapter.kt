@@ -50,19 +50,17 @@ class CoinAdapter(
         fun bind(coin: Coin) {
             val percentageChange = coin.priceChangePercentage24h
             val formattedChange = String.format("%.2f", percentageChange)
+            val colorResId = setColorBasedOnChange(percentageChange)
+            val chart = viewModel.chartData.value?.get(coin.id)
 
             with(binding) {
                 tvSymbol.text = coin.symbol
                 tvPrice.text = "$${coin.currentPrice}"
                 tvPercent.text = root.context.getString(R.string.per_format, formattedChange)
                 Glide.with(root.context).load(coin.image).into(ivCoin)
-
-                val colorResId = setColorBasedOnChange(percentageChange)
-
-                val chart = viewModel.chartData.value?.get(coin.id)
-                if (chart != null) {
-                    showChart(chart, colorResId)
-                }
+            }
+            chart?.let {
+                showChart(it, colorResId)
             }
         }
 

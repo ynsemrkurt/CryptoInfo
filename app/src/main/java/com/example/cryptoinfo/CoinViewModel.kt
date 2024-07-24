@@ -24,7 +24,7 @@ class CoinViewModel : ViewModel() {
     private fun fetchCoins() {
         viewModelScope.launch {
             try {
-                val coinList = RetrofitInstance.coinApiService.getCoins("usd",5)
+                val coinList = RetrofitInstance.coinApiService.getCoins("usd", 5)
                 _coins.postValue(coinList)
                 fetchAndDisplayAllCharts(coinList.map { it.id })
             } catch (e: Exception) {
