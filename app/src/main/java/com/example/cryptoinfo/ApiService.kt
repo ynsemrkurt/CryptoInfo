@@ -11,10 +11,11 @@ interface ApiService {
         @Query("per_page") perPage: Int,
     ): List<Coin>
 
-    @GET("coins/{id}/market_chart")
+    @GET("coins/{id}/market_chart/range")
     suspend fun getMarketChart(
         @Path("id") id: String,
         @Query("vs_currency") vsCurrency: String,
-        @Query("days") days: String
+        @Query("from") from: Int,
+        @Query("to") to: Int
     ): MarketChartResponse
 }
