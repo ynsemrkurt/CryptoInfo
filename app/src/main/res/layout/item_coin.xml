@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?color">
@@ -50,6 +51,18 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/ivCoin"
                 app:layout_constraintTop_toBottomOf="@+id/ivCoin" />
+
+            <ImageView
+                android:id="@+id/ivGoDetail"
+                android:layout_width="@dimen/icon_size_medium"
+                android:layout_height="@dimen/icon_size_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:src="@drawable/navigate_next"
+                android:tint="?strokeColor"
+                android:contentDescription="@string/coin_symbol"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvSymbol"
