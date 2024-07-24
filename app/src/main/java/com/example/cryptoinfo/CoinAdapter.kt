@@ -20,7 +20,7 @@ class CoinAdapter(
 ) : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
 
     init {
-        viewModel.chartData.observeForever { chartData ->
+        viewModel.chartData.observeForever {
             notifyDataSetChanged()
         }
     }
@@ -54,9 +54,8 @@ class CoinAdapter(
             with(binding) {
                 tvSymbol.text = coin.symbol
                 tvPrice.text = "$${coin.currentPrice}"
-                tvPercent.text =
-                    binding.root.context.getString(R.string.per_format, formattedChange)
-                Glide.with(binding.root.context).load(coin.image).into(ivCoin)
+                tvPercent.text = root.context.getString(R.string.per_format, formattedChange)
+                Glide.with(root.context).load(coin.image).into(ivCoin)
 
                 val colorResId = setColorBasedOnChange(percentageChange)
 
