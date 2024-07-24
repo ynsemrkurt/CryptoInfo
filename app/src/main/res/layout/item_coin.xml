@@ -59,10 +59,10 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_marginEnd="@dimen/margin_medium"
                 android:src="@drawable/navigate_next"
-                android:tint="?strokeColor"
                 android:contentDescription="@string/coin_symbol"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?strokeColor" />
 
             <TextView
                 android:id="@+id/tvSymbol"
