@@ -17,6 +17,7 @@
     <dimen name="margin_xxx_large">64dp</dimen>
 
     <!-- Icon Size -->
+    <dimen name="icon_size_small">24dp</dimen>
     <dimen name="icon_size_medium">36dp</dimen>
 
     <!-- Text Size -->
@@ -25,6 +26,7 @@
     <dimen name="text_size_medium">18sp</dimen>
     <dimen name="text_size_medium_ver_2">24sp</dimen>
     <dimen name="text_size_large">28sp</dimen>
+    <dimen name="text_size_xxx_large">48sp</dimen>
 
     <!-- Padding Size -->
     <dimen name="padding_x_small">4dp</dimen>
