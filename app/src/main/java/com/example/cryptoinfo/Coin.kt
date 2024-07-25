@@ -21,14 +21,14 @@ data class Coin(
     @SerializedName("price_change_24h")
     val priceChange24h: Double,
     @SerializedName("circulating_supply")
-    val circulatingSupply : Double,
+    val circulatingSupply: Double,
     @SerializedName("market_cap")
     val marketCap: Long,
     @SerializedName("market_cap_rank")
     val marketCapRank: Int,
     @SerializedName("total_volume")
     val totalVolume: Long,
-): Parcelable
+) : Parcelable
 
 @Parcelize
 data class MarketChartResponse(

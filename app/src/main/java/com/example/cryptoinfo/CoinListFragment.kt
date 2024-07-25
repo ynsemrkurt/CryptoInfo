@@ -36,7 +36,8 @@ class CoinListFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = CoinAdapter(viewModel) { coin, chart ->
             val marketChartResponse = MarketChartResponse(chart ?: emptyList())
-            val action = CoinListFragmentDirections.goToCoinDetailFragment(coin, marketChartResponse)
+            val action =
+                CoinListFragmentDirections.goToCoinDetailFragment(coin, marketChartResponse)
             findNavController().navigate(action)
         }
         binding.rvCoins.adapter = adapter

@@ -2,7 +2,6 @@ package com.example.cryptoinfo
 
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -93,11 +92,14 @@ class CoinDetailFragment : Fragment() {
             tvName.text = coin.name
             tvHighPrice.text = getString(R.string.high_24h_format, coin.high24h.toString())
             tvLowPrice.text = getString(R.string.low_24h_format, coin.low24h.toString())
-            tvCirculatingSupply.text = getString(R.string.circ_supply_format, coin.circulatingSupply.toString())
+            tvCirculatingSupply.text =
+                getString(R.string.circ_supply_format, coin.circulatingSupply.toString())
             tvTotalVolume.text = getString(R.string.tot_volume_format, coin.totalVolume.toString())
             tvMarketCap.text = getString(R.string.market_cap_format, coin.marketCap.toString())
-            tvMarketCapRank.text = getString(R.string.market_cap_rank_format, coin.marketCapRank.toString())
-            tvPercent.text = getString(R.string.per_format, coin.priceChangePercentage24h.toString())
+            tvMarketCapRank.text =
+                getString(R.string.market_cap_rank_format, coin.marketCapRank.toString())
+            tvPercent.text =
+                getString(R.string.per_format, coin.priceChangePercentage24h.toString())
         }
     }
 
@@ -105,7 +107,10 @@ class CoinDetailFragment : Fragment() {
         Glide.with(this)
             .load(url)
             .into(object : CustomTarget<Drawable>() {
-                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                override fun onResourceReady(
+                    resource: Drawable,
+                    transition: Transition<in Drawable>?
+                ) {
                     val bitmap = resource.toBitmap()
                     Palette.from(bitmap).generate { palette ->
                         val dominantColor = palette?.getDominantColor(Color.BLACK) ?: Color.BLACK
