@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cryptoinfo.databinding.ItemCoinBinding
@@ -15,21 +17,10 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 class CoinAdapter(
-    private var coins: List<Coin>,
     private val viewModel: CoinViewModel,
     private val onCoinClick: (Coin, List<List<Float>>?) -> Unit
-) : RecyclerView.Adapter<CoinAdapter.CoinViewHolder>() {
+) : ListAdapter<Coin, CoinAdapter.CoinViewHolder>(CoinDiffCallback()) {
 
-    init {
-        viewModel.chartData.observeForever {
-            notifyDataSetChanged()
-        }
-    }
-
-    fun updateCoins(newCoins: List<Coin>) {
-        coins = newCoins
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
         val binding = ItemCoinBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -37,11 +28,9 @@ class CoinAdapter(
     }
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
-        val coin = coins[position]
+        val coin = getItem(position)
         holder.bind(coin)
     }
-
-    override fun getItemCount() = coins.size
 
     class CoinViewHolder(
         private val binding: ItemCoinBinding,
@@ -49,21 +38,29 @@ class CoinAdapter(
         private val onCoinClick: (Coin, List<List<Float>>?) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
+
+        private var chart: List<List<Float>>? = null
+
         fun bind(coin: Coin) {
             val percentageChange = coin.priceChangePercentage24h
             val formattedChange = String.format("%.2f", percentageChange)
             val colorResId = setColorBasedOnChange(percentageChange)
-            val chart = viewModel.chartData.value?.get(coin.id)?.prices
-                ?.filterIndexed { index, _ -> index % 10 == 0 }
 
             with(binding) {
                 tvSymbol.text = coin.symbol
-                tvPrice.text = "$${coin.currentPrice}"
+                tvPrice.text = binding.root.context.getString(
+                    R.string.dollar_format,
+                    coin.currentPrice.toString()
+                )
                 tvPercent.text = root.context.getString(R.string.per_format, formattedChange)
                 Glide.with(root.context).load(coin.image).into(ivCoin)
             }
-            chart?.let {
-                showChart(it, colorResId)
+
+            viewModel.chartData.observeForever { chartDataMap ->
+                chart = chartDataMap[coin.id]?.prices?.filterIndexed { index, _ -> index % 10 == 0 }
+                chart?.let {
+                    showChart(it, colorResId)
+                }
             }
 
             itemView.setOnClickListener {
@@ -142,5 +139,15 @@ class CoinAdapter(
 
             lineChart.invalidate()
         }
+    }
+}
+
+class CoinDiffCallback : DiffUtil.ItemCallback<Coin>() {
+    override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
+        return oldItem == newItem
     }
 }
