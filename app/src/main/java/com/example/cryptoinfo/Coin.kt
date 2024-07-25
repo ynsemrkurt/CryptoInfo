@@ -32,5 +32,5 @@ data class Coin(
 
 @Parcelize
 data class MarketChartResponse(
-    val prices: List<List<Double>>
-):Parcelable
+    val prices: List<List<Float>>
+) : Parcelable
