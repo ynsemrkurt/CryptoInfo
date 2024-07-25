@@ -4,17 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CoinDetailFragment">
+    tools:context=".CoinDetailFragment"
+    android:background="?color">
 
     <ImageButton
         android:id="@+id/ivGoDetail"
-        android:layout_width="@dimen/icon_size_medium"
-        android:layout_height="@dimen/icon_size_medium"
+        android:layout_width="@dimen/icon_size_small"
+        android:layout_height="@dimen/icon_size_small"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginStart="@dimen/margin_medium"
         android:contentDescription="@string/coin_symbol"
         android:src="@drawable/navigate_back"
-        android:padding="@dimen/padding_x_small"
         android:background="@color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="@+id/ivGoDetail">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ivSymbol"
             android:layout_width="@dimen/icon_size_medium"
             android:layout_height="@dimen/icon_size_medium"
             android:contentDescription="@string/coin_symbol"
@@ -48,7 +48,7 @@
             android:textSize="@dimen/text_size_medium_ver_2"
             android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/ivSymbol"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_xxx_large"
         android:text="@string/default_dollars"
-        android:textSize="@dimen/text_size_large"
+        android:textSize="@dimen/text_size_xxx_large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +112,9 @@
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_x_large"
+        android:layout_marginTop="@dimen/margin_xxx_large"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
@@ -142,6 +144,7 @@
             android:layout_marginTop="@dimen/margin_medium"
             android:text="@string/circ_sup"
             android:textSize="@dimen/text_size_small"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvHighPrice" />
 
@@ -153,7 +156,8 @@
             android:text="@string/tot_vol"
             android:textSize="@dimen/text_size_small"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLowPrice" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCirculatingSupply" />
 
         <TextView
             android:id="@+id/tvMarketCap"
@@ -162,8 +166,9 @@
             android:layout_marginTop="@dimen/margin_medium"
             android:text="@string/market_cap"
             android:textSize="@dimen/text_size_small"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCirculatingSupply" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTotalVolume" />
 
         <TextView
             android:id="@+id/tvMarketCapRank"
@@ -173,7 +178,8 @@
             android:text="@string/cap_rank_1"
             android:textSize="@dimen/text_size_small"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTotalVolume" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMarketCap" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -182,7 +188,7 @@
         android:id="@+id/lineChart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_x_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
