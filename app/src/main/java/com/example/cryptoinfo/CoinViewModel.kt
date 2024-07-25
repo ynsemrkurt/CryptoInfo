@@ -12,8 +12,8 @@ class CoinViewModel : ViewModel() {
     private val _coins = MutableLiveData<List<Coin>>()
     val coins: LiveData<List<Coin>> get() = _coins
 
-    private val _chartData = MutableLiveData<Map<String, List<Pair<Float, Float>>>>()
-    val chartData: LiveData<Map<String, List<Pair<Float, Float>>>> get() = _chartData
+    private val _chartData = MutableLiveData<Map<String, MarketChartResponse>>()
+    val chartData: LiveData<Map<String, MarketChartResponse>> get() = _chartData
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
@@ -37,7 +37,7 @@ class CoinViewModel : ViewModel() {
     fun fetchAndDisplayAllCharts(coinIds: List<String>) {
         viewModelScope.launch {
             try {
-                val charts = mutableMapOf<String, List<Pair<Float, Float>>>()
+                val charts = mutableMapOf<String, MarketChartResponse>()
                 val now = System.currentTimeMillis() / 1000
                 val oneDayAgo = now - TimeUnit.DAYS.toSeconds(1)
 
@@ -49,9 +49,9 @@ class CoinViewModel : ViewModel() {
                         now.toInt()
                     )
                     val chartDataList = response.prices.map {
-                        Pair(it[0].toFloat(), it[1].toFloat())
+                        listOf(it[0], it[1])
                     }
-                    charts[coinId] = chartDataList
+                    charts[coinId] = MarketChartResponse(chartDataList)
                 }
                 _chartData.postValue(charts)
             } catch (e: Exception) {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.cryptoinfo.databinding.FragmentCoinListBinding
 
 class CoinListFragment : Fragment() {
@@ -32,7 +33,11 @@ class CoinListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = CoinAdapter(emptyList(), viewModel)
+        adapter = CoinAdapter(emptyList(), viewModel) { coin, chart ->
+            val marketChartResponse = MarketChartResponse(chart ?: emptyList())
+            val action = CoinListFragmentDirections.goToCoinDetailFragment(coin, marketChartResponse)
+            findNavController().navigate(action)
+        }
         binding.rvCoins.adapter = adapter
     }
 
