@@ -72,4 +72,7 @@ dependencies {
 
     // Chart
     implementation(libs.mpandroidchart)
+
+    //Palette
+    implementation(libs.androidx.palette)
 }
