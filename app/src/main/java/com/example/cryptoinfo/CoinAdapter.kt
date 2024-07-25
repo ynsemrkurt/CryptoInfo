@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import java.util.Locale
 
 class CoinAdapter(
     private val viewModel: CoinViewModel,
@@ -43,7 +44,7 @@ class CoinAdapter(
 
         fun bind(coin: Coin) {
             val percentageChange = coin.priceChangePercentage24h
-            val formattedChange = String.format("%.2f", percentageChange)
+            val formattedChange = String.format(Locale.getDefault(), "%.2f", percentageChange)
             val colorResId = setColorBasedOnChange(percentageChange)
 
             with(binding) {
