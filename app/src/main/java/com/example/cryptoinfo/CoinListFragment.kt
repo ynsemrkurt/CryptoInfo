@@ -29,11 +29,12 @@ class CoinListFragment : Fragment() {
 
         setupRecyclerView()
         observeCoins()
+        observeChartData()
         observeError()
     }
 
     private fun setupRecyclerView() {
-        adapter = CoinAdapter(emptyList(), viewModel) { coin, chart ->
+        adapter = CoinAdapter(viewModel) { coin, chart ->
             val marketChartResponse = MarketChartResponse(chart ?: emptyList())
             val action = CoinListFragmentDirections.goToCoinDetailFragment(coin, marketChartResponse)
             findNavController().navigate(action)
@@ -43,8 +44,14 @@ class CoinListFragment : Fragment() {
 
     private fun observeCoins() {
         viewModel.coins.observe(viewLifecycleOwner) { coins ->
-            adapter.updateCoins(coins)
+            adapter.submitList(coins)
             viewModel.fetchAndDisplayAllCharts(coins.map { it.id })
+        }
+    }
+
+    private fun observeChartData() {
+        viewModel.chartData.observe(viewLifecycleOwner) { _ ->
+            adapter.notifyDataSetChanged()
         }
     }
 
