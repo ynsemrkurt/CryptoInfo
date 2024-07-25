@@ -1,7 +1,10 @@
 package com.example.cryptoinfo
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Coin(
     val id: String,
     val symbol: String,
@@ -17,8 +20,17 @@ data class Coin(
     val low24h: Double,
     @SerializedName("price_change_24h")
     val priceChange24h: Double,
-)
+    @SerializedName("circulating_supply")
+    val circulatingSupply : Double,
+    @SerializedName("market_cap")
+    val marketCap: Long,
+    @SerializedName("market_cap_rank")
+    val marketCapRank: Int,
+    @SerializedName("total_volume")
+    val totalVolume: Long,
+): Parcelable
 
+@Parcelize
 data class MarketChartResponse(
     val prices: List<List<Double>>
-)
+):Parcelable
