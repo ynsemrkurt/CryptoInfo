@@ -20,9 +20,5 @@ data class Coin(
 )
 
 data class MarketChartResponse(
-    val prices: List<List<Double>>,
-    @SerializedName("market_caps")
-    val marketCaps: List<List<Double>>,
-    @SerializedName("total_volumes")
-    val totalVolumes: List<List<Double>>,
+    val prices: List<List<Double>>
 )
