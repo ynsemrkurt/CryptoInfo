@@ -68,8 +68,10 @@ class CoinAdapter(
             val colorResId =
                 if (percentageChange < 0) {
                     R.color.app_red
-                } else {
+                } else if (percentageChange > 0) {
                     R.color.app_green
+                } else {
+                    R.color.app_gray
                 }
             val color = ContextCompat.getColor(binding.root.context, colorResId)
             with(binding) {

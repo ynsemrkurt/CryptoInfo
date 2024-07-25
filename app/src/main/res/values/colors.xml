@@ -7,4 +7,5 @@
     <color name="transparent">#00000000</color>
     <color name="edit_text_background">#565656</color>
     <color name="hint_color">#9CFFFFFF</color>
+    <color name="app_gray">#aaa7b4</color>
 </resources>
