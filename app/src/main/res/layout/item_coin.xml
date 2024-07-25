@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
-        app:cardElevation="@dimen/card_elevation_small"
         app:cardBackgroundColor="?cardBackgroundColor"
+        app:cardElevation="@dimen/card_elevation_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,10 +21,10 @@
             android:id="@+id/lineChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="-16dp"
-            android:layout_marginBottom="-16dp"
-            android:layout_marginEnd="-16dp"
-            android:layout_marginTop="@dimen/margin_xxx_large"/>
+            android:layout_marginStart="@dimen/margin_xx_small"
+            android:layout_marginTop="@dimen/margin_xxx_large"
+            android:layout_marginEnd="@dimen/margin_xx_small"
+            android:layout_marginBottom="@dimen/margin_xx_small" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -57,8 +57,8 @@
                 android:layout_height="@dimen/icon_size_medium"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_marginEnd="@dimen/margin_medium"
-                android:src="@drawable/navigate_next"
                 android:contentDescription="@string/coin_symbol"
+                android:src="@drawable/navigate_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="?strokeColor" />
@@ -69,9 +69,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:text="@string/default_coin"
+                android:textAllCaps="true"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold"
-                android:textAllCaps="true"
                 app:layout_constraintBottom_toBottomOf="@+id/ivCoin"
                 app:layout_constraintStart_toEndOf="@+id/ivCoin"
                 app:layout_constraintTop_toTopOf="@+id/ivCoin" />

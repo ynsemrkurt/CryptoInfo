@@ -8,6 +8,7 @@
     <dimen name="card_elevation_small">4dp</dimen>
 
     <!-- Margin Size -->
+    <dimen name="margin_xx_small">-16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_xx_large">48dp</dimen>
