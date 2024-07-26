@@ -2,7 +2,9 @@ package com.example.cryptoinfo
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
@@ -22,7 +24,6 @@ class CoinAdapter(
     private val onCoinClick: (Coin, List<List<Float>>?) -> Unit
 ) : ListAdapter<Coin, CoinAdapter.CoinViewHolder>(CoinDiffCallback()) {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
         val binding = ItemCoinBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CoinViewHolder(binding, viewModel, onCoinClick)
@@ -39,22 +40,27 @@ class CoinAdapter(
         private val onCoinClick: (Coin, List<List<Float>>?) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-
         private var chart: List<List<Float>>? = null
 
         fun bind(coin: Coin) {
+            val context = binding.root.context
+
+            val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out)
             val percentageChange = coin.priceChangePercentage24h
             val formattedChange = String.format(Locale.getDefault(), "%.2f", percentageChange)
             val colorResId = setColorBasedOnChange(percentageChange)
 
+            binding.root.startAnimation(fadeIn)
+
             with(binding) {
                 tvSymbol.text = coin.symbol
-                tvPrice.text = binding.root.context.getString(
+                tvPrice.text = context.getString(
                     R.string.dollar_format,
                     coin.currentPrice.toString()
                 )
-                tvPercent.text = root.context.getString(R.string.per_format, formattedChange)
-                Glide.with(root.context).load(coin.image).into(ivCoin)
+                tvPercent.text = context.getString(R.string.per_format, formattedChange)
+                Glide.with(context).load(coin.image).into(ivCoin)
             }
 
             viewModel.chartData.observeForever { chartDataMap ->
@@ -66,6 +72,9 @@ class CoinAdapter(
 
             itemView.setOnClickListener {
                 onCoinClick(coin, chart)
+
+                // Fade out animasyonu başlat
+                binding.root.startAnimation(fadeOut)
             }
         }
 
