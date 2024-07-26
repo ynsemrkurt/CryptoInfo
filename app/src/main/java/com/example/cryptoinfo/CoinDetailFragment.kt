@@ -2,12 +2,15 @@ package com.example.cryptoinfo
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -81,7 +84,10 @@ class CoinDetailFragment : Fragment() {
         lineChart.xAxis.apply {
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
-                    return SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(value.toLong() * 1000))
+                    return SimpleDateFormat(
+                        "HH:mm",
+                        Locale.getDefault()
+                    ).format(Date(value.toLong() * 1000))
                 }
             }
             granularity = 3600f
@@ -98,7 +104,6 @@ class CoinDetailFragment : Fragment() {
         lineChart.axisRight.isEnabled = false
         lineChart.description.isEnabled = false
 
-        // Add animation
         lineChart.animateX(1000)
 
         lineChart.invalidate()
@@ -153,14 +158,32 @@ class CoinDetailFragment : Fragment() {
                     val bitmap = resource.toBitmap()
                     Palette.from(bitmap).generate { palette ->
                         val dominantColor = palette?.getDominantColor(Color.BLACK) ?: Color.BLACK
+                        val changeColor = ContextCompat.getColor(
+                            requireContext(),
+                            setColorBasedOnChange(args.coin.priceChangePercentage24h)
+                        )
+
+                        applyGradientToTextView(binding.tvSymbol, dominantColor, changeColor)
+
                         binding.tvName.backgroundTintList = ColorStateList.valueOf(dominantColor)
                     }
                     binding.ivSymbol.setImageDrawable(resource)
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-                    // TODO
+                    // TODO: Handle placeholder if needed
                 }
             })
+    }
+
+    private fun applyGradientToTextView(textView: TextView, startColor: Int, endColor: Int) {
+        val shader = LinearGradient(
+            0f, 0f, textView.width.toFloat(), textView.textSize,
+            intArrayOf(startColor, endColor),
+            null,
+            Shader.TileMode.CLAMP
+        )
+        textView.paint.shader = shader
+        textView.invalidate()
     }
 }
