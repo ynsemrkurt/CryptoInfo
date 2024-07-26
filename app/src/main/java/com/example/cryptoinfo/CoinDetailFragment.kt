@@ -19,9 +19,14 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.cryptoinfo.databinding.FragmentCoinDetailBinding
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class CoinDetailFragment : Fragment() {
 
@@ -70,8 +75,26 @@ class CoinDetailFragment : Fragment() {
         val lineData = LineData(dataSet)
         lineChart.data = lineData
 
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+
+        lineChart.xAxis.apply {
+            valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return dateFormat.format(Date(value.toLong() * 1000))
+                }
+            }
+            granularity = 3600f
+            labelRotationAngle = -45f
+            position = XAxis.XAxisPosition.BOTTOM
+            setDrawGridLines(false)
+        }
+
+        lineChart.axisRight.isEnabled = false
+        lineChart.description.isEnabled = false
+
         lineChart.invalidate()
     }
+
 
     private fun setColorBasedOnChange(percentageChange: Double): Int {
         val colorResId = when {
