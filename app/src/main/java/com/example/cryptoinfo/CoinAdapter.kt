@@ -46,7 +46,6 @@ class CoinAdapter(
             val context = binding.root.context
 
             val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
-            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out)
             val percentageChange = coin.priceChangePercentage24h
             val formattedChange = String.format(Locale.getDefault(), "%.2f", percentageChange)
             val colorResId = setColorBasedOnChange(percentageChange)
@@ -72,9 +71,6 @@ class CoinAdapter(
 
             itemView.setOnClickListener {
                 onCoinClick(coin, chart)
-
-                // Fade out animasyonu başlat
-                binding.root.startAnimation(fadeOut)
             }
         }
 

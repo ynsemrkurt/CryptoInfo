@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.cryptoinfo.databinding.FragmentCoinListBinding
 
@@ -38,7 +39,13 @@ class CoinListFragment : Fragment() {
             val marketChartResponse = MarketChartResponse(chart ?: emptyList())
             val action =
                 CoinListFragmentDirections.goToCoinDetailFragment(coin, marketChartResponse)
-            findNavController().navigate(action)
+            findNavController().navigate(
+                action,
+                NavOptions.Builder()
+                    .setEnterAnim(R.anim.slide_in_right)
+                    .setPopExitAnim(R.anim.slide_out_right)
+                    .build()
+            )
         }
         binding.rvCoins.adapter = adapter
     }
