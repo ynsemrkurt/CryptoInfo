@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,9 +64,11 @@ class CoinDetailFragment : Fragment() {
 
         val entries = chartData.map { Entry(it[0], it[1]) }
         val dataSet = LineDataSet(entries, null)
+        val textColor = android.R.attr.textColor.getColorFromTheme()
 
-        dataSet.color = ContextCompat.getColor(binding.root.context, chartColor)
-        dataSet.setFillColor(ContextCompat.getColor(binding.root.context, chartColor))
+        val chartColorValue = ContextCompat.getColor(binding.root.context, chartColor)
+        dataSet.color = chartColorValue
+        dataSet.setFillColor(chartColorValue)
         dataSet.fillAlpha = 100
 
         dataSet.setDrawValues(false)
@@ -75,24 +78,34 @@ class CoinDetailFragment : Fragment() {
         val lineData = LineData(dataSet)
         lineChart.data = lineData
 
-        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-
         lineChart.xAxis.apply {
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
-                    return dateFormat.format(Date(value.toLong() * 1000))
+                    return SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(value.toLong() * 1000))
                 }
             }
             granularity = 3600f
             labelRotationAngle = -45f
             position = XAxis.XAxisPosition.BOTTOM
             setDrawGridLines(false)
+            setTextColor(textColor)
+        }
+
+        lineChart.axisLeft.apply {
+            setTextColor(textColor)
         }
 
         lineChart.axisRight.isEnabled = false
         lineChart.description.isEnabled = false
 
         lineChart.invalidate()
+    }
+
+    // Extension function to get color from theme
+    private fun Int.getColorFromTheme(): Int {
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(this, typedValue, true)
+        return typedValue.data
     }
 
 
