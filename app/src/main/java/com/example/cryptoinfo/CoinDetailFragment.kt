@@ -98,6 +98,9 @@ class CoinDetailFragment : Fragment() {
         lineChart.axisRight.isEnabled = false
         lineChart.description.isEnabled = false
 
+        // Add animation
+        lineChart.animateX(1000)
+
         lineChart.invalidate()
     }
 
