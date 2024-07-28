@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
@@ -16,6 +17,7 @@ class CoinListFragment : Fragment() {
     private val viewModel: CoinViewModel by viewModels()
     private lateinit var binding: FragmentCoinListBinding
     private lateinit var adapter: CoinAdapter
+    private var coinList = listOf<Coin>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,10 @@ class CoinListFragment : Fragment() {
         observeCoins()
         observeChartData()
         observeError()
+
+        binding.etSearch.addTextChangedListener { text ->
+            filterCoins(text?.trim().toString())
+        }
     }
 
     private fun setupRecyclerView() {
@@ -52,6 +58,7 @@ class CoinListFragment : Fragment() {
 
     private fun observeCoins() {
         viewModel.coins.observe(viewLifecycleOwner) { coins ->
+            coinList = coins
             adapter.submitList(coins)
             viewModel.fetchAndDisplayAllCharts(coins.map { it.id })
         }
@@ -71,5 +78,17 @@ class CoinListFragment : Fragment() {
                 .setPositiveButton(getString(R.string.ok)) { dialog, _ -> dialog.dismiss() }
                 .show()
         }
+    }
+
+    private fun filterCoins(query: String) {
+        val filteredList = if (query.isEmpty()) {
+            coinList
+        } else {
+            coinList.filter {
+                it.name.contains(query, ignoreCase = true) ||
+                        it.symbol.contains(query, ignoreCase = true)
+            }
+        }
+        adapter.submitList(filteredList)
     }
 }
