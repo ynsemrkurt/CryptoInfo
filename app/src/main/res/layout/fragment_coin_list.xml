@@ -20,11 +20,17 @@
 
     <EditText
         android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginEnd="@dimen/margin_medium"
         android:autofillHints="name"
         android:inputType="text"
+        android:background="@drawable/et_background"
         android:drawableStart="@drawable/search"
         android:hint="@string/search_string"
-        style="@style/EditTextStyle"
+        android:padding="@dimen/padding_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAppName" />

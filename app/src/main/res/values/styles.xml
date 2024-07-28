@@ -30,15 +30,5 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
     </style>
-
-    <style name="EditTextStyle">
-        <item name="android:padding">@dimen/padding_medium</item>
-        <item name="android:layout_marginTop">@dimen/margin_medium</item>
-        <item name="android:layout_marginStart">@dimen/margin_medium</item>
-        <item name="android:layout_marginEnd">@dimen/margin_medium</item>
-        <item name="android:background">@drawable/et_background</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
     
 </resources>
