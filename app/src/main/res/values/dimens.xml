@@ -33,4 +33,7 @@
     <dimen name="padding_small">8dp</dimen>
     <dimen name="padding_medium">12dp</dimen>
 
+    <!-- Stroke Width -->
+    <dimen name="stroke_medium">1dp</dimen>
+
 </resources>
