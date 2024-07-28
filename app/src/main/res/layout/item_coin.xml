@@ -62,7 +62,7 @@
                 android:src="@drawable/navigate_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="?strokeColor" />
+                app:tint="?iconTint" />
 
             <TextView
                 android:id="@+id/tvSymbol"

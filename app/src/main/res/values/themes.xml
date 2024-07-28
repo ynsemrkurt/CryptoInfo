@@ -7,8 +7,9 @@
         <item name="cardBackgroundColor">@color/white</item>
         <item name="android:textColor">@color/black</item>
         <item name="color">@color/white</item>
-        <item name="strokeColor">@color/black</item>
+        <item name="strokeColor">@color/day_stroke</item>
         <item name="fontFamily">@font/alata</item>
+        <item name="iconTint">@color/black</item>
     </style>
 
     <style name="Theme.CryptoInfo" parent="Base.Theme.CryptoInfo" />

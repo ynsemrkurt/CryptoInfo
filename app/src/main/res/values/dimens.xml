@@ -31,5 +31,6 @@
     <!-- Padding Size -->
     <dimen name="padding_x_small">4dp</dimen>
     <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
 
 </resources>

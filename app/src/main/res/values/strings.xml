@@ -25,4 +25,5 @@
     <string name="market_cap_format">Market Cap: %1$s</string>
     <string name="market_cap_rank_format">Market Cap Rank: %1$s</string>
     <string name="dollar_format">$%1$s</string>
+    <string name="search_string">Search</string>
 </resources>
