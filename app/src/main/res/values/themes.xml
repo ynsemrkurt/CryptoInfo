@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.CryptoInfo" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">@color/white</item>
@@ -18,6 +18,8 @@
         <item name="textAppearanceBodyLarge">@style/LargeBodyTextStyle</item>
         <item name="textAppearanceBodyMedium">@style/MediumBodyTextStyle</item>
         <item name="textAppearanceBodySmall">@style/SmallBodyTextStyle</item>
+
+        <item name="editTextStyle">@style/EditTextStyle</item>
     </style>
 
     <style name="Theme.CryptoInfo" parent="Base.Theme.CryptoInfo" />
