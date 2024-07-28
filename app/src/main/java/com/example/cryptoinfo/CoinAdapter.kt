@@ -40,10 +40,9 @@ class CoinAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private var chart: List<List<Float>>? = null
+        private val context = binding.root.context
 
         fun bind(coin: Coin) {
-            val context = binding.root.context
-
             val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
             val percentageChange = coin.priceChangePercentage24h
             val formattedChange = String.format(Locale.getDefault(), "%.2f", percentageChange)
@@ -82,7 +81,7 @@ class CoinAdapter(
                 } else {
                     R.color.app_gray
                 }
-            val color = ContextCompat.getColor(binding.root.context, colorResId)
+            val color = ContextCompat.getColor(context, colorResId)
             with(binding) {
                 tvPercent.backgroundTintList = ColorStateList.valueOf(color)
                 tvPrice.setTextColor(color)
@@ -92,57 +91,54 @@ class CoinAdapter(
 
         private fun showChart(chartData: List<List<Float>>, @ColorRes chartColor: Int) {
             val lineChart: LineChart = binding.lineChart
-
             val entries = chartData.map { Entry(it[0], it[1]) }
-            val dataSet = LineDataSet(entries, null)
-
-            dataSet.color = ContextCompat.getColor(binding.root.context, chartColor)
-            dataSet.setFillColor(ContextCompat.getColor(binding.root.context, chartColor))
-            dataSet.fillAlpha = 100
-
-            dataSet.setDrawValues(false)
-            dataSet.setDrawCircles(false)
-            dataSet.setDrawFilled(true)
-
-            val lineData = LineData(dataSet)
-            lineChart.data = lineData
-
-            lineChart.xAxis.apply {
-                valueFormatter = IndexAxisValueFormatter(chartData.map { it[0].toString() })
-                granularity = 1f
-                setDrawLabels(false)
-                setDrawGridLines(false)
-                setDrawAxisLine(false)
+            val dataSet = LineDataSet(entries, null).apply {
+                color = ContextCompat.getColor(context, chartColor)
+                setFillColor(ContextCompat.getColor(context, chartColor))
+                fillAlpha = 100
+                setDrawValues(false)
+                setDrawCircles(false)
+                setDrawFilled(true)
             }
 
-            lineChart.axisRight.isEnabled = false
-            lineChart.axisLeft.apply {
-                setDrawLabels(false)
-                setDrawGridLines(false)
-                setDrawAxisLine(false)
+            lineChart.data = LineData(dataSet)
+            configureChartAppearance(lineChart, chartData)
+        }
+
+        private fun configureChartAppearance(lineChart: LineChart, chartData: List<List<Float>>) {
+            lineChart.apply {
+                xAxis.apply {
+                    valueFormatter = IndexAxisValueFormatter(chartData.map { it[0].toString() })
+                    granularity = 1f
+                    setDrawLabels(false)
+                    setDrawGridLines(false)
+                    setDrawAxisLine(false)
+                }
+                axisRight.isEnabled = false
+                axisLeft.apply {
+                    setDrawLabels(false)
+                    setDrawGridLines(false)
+                    setDrawAxisLine(false)
+                }
+                setPadding(0, 0, 0, 0)
+                setDrawBorders(false)
+                setTouchEnabled(false)
+                xAxis.apply {
+                    axisMinimum = chartData.minOfOrNull { it[0] } ?: 0f
+                    axisMaximum = chartData.maxOfOrNull { it[0] } ?: 0f
+                    spaceMin = 0f
+                    spaceMax = 0f
+                }
+                axisLeft.apply {
+                    axisMinimum = chartData.minOfOrNull { it[1] } ?: 0f
+                    axisMaximum = chartData.maxOfOrNull { it[1] } ?: 0f
+                    spaceMin = 0f
+                    spaceMax = 0f
+                }
+                legend.isEnabled = false
+                description.isEnabled = false
+                invalidate()
             }
-
-            lineChart.setPadding(0, 0, 0, 0)
-            lineChart.setDrawBorders(false)
-            lineChart.setTouchEnabled(false)
-
-            lineChart.xAxis.apply {
-                axisMinimum = chartData.minOfOrNull { it[0] } ?: 0f
-                axisMaximum = chartData.maxOfOrNull { it[0] } ?: 0f
-                spaceMin = 0f
-                spaceMax = 0f
-            }
-            lineChart.axisLeft.apply {
-                axisMinimum = chartData.minOfOrNull { it[1] } ?: 0f
-                axisMaximum = chartData.maxOfOrNull { it[1] } ?: 0f
-                spaceMin = 0f
-                spaceMax = 0f
-            }
-
-            lineChart.legend.isEnabled = false
-            lineChart.description.isEnabled = false
-
-            lineChart.invalidate()
         }
     }
 }
