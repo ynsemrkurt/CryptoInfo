@@ -10,5 +10,13 @@
         <item name="strokeColor">@color/night_stroke</item>
         <item name="fontFamily">@font/alata</item>
         <item name="iconTint">@color/white</item>
+
+        <!-- Typography -->
+        <item name="textAppearanceTitleLarge">@style/LargeTitleStyle</item>
+        <item name="textAppearanceTitleMedium">@style/MediumTitleStyle</item>
+        <item name="textAppearanceTitleSmall">@style/SmallTitleStyle</item>
+        <item name="textAppearanceBodyLarge">@style/LargeBodyTextStyle</item>
+        <item name="textAppearanceBodyMedium">@style/MediumBodyTextStyle</item>
+        <item name="textAppearanceBodySmall">@style/SmallBodyTextStyle</item>
     </style>
 </resources>

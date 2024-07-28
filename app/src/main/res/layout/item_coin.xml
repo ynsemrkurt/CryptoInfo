@@ -47,8 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/default_dollars"
-                android:textSize="@dimen/text_size_large"
-                android:textStyle="bold"
+                android:textAppearance="?textAppearanceTitleMedium"
                 app:layout_constraintStart_toStartOf="@+id/ivCoin"
                 app:layout_constraintTop_toBottomOf="@+id/ivCoin" />
 
@@ -70,9 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:text="@string/default_coin"
-                android:textAllCaps="true"
-                android:textSize="@dimen/text_size_medium"
-                android:textStyle="bold"
+                android:textAppearance="?textAppearanceBodyLarge"
                 app:layout_constraintBottom_toBottomOf="@+id/ivCoin"
                 app:layout_constraintStart_toEndOf="@+id/ivCoin"
                 app:layout_constraintTop_toTopOf="@+id/ivCoin" />
@@ -91,7 +88,7 @@
                 android:paddingEnd="@dimen/padding_small"
                 android:text="@string/default_per"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_medium"
+                android:textAppearance="?textAppearanceBodyLarge"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvPrice" />

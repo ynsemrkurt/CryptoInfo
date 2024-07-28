@@ -10,6 +10,14 @@
         <item name="strokeColor">@color/day_stroke</item>
         <item name="fontFamily">@font/alata</item>
         <item name="iconTint">@color/black</item>
+
+        <!-- Typography -->
+        <item name="textAppearanceTitleLarge">@style/LargeTitleStyle</item>
+        <item name="textAppearanceTitleMedium">@style/MediumTitleStyle</item>
+        <item name="textAppearanceTitleSmall">@style/SmallTitleStyle</item>
+        <item name="textAppearanceBodyLarge">@style/LargeBodyTextStyle</item>
+        <item name="textAppearanceBodyMedium">@style/MediumBodyTextStyle</item>
+        <item name="textAppearanceBodySmall">@style/SmallBodyTextStyle</item>
     </style>
 
     <style name="Theme.CryptoInfo" parent="Base.Theme.CryptoInfo" />

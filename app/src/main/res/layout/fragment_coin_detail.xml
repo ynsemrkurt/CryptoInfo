@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_small"
             android:text="@string/def_coin"
-            android:textSize="@dimen/text_size_medium_ver_2"
+            android:textAppearance="?textAppearanceTitleSmall"
             android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivSymbol"
@@ -59,8 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_xxx_large"
         android:text="@string/default_dollars"
-        android:textSize="@dimen/text_size_xxx_large"
-        android:textStyle="bold"
+        android:textAppearance="?textAppearanceTitleLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
@@ -83,9 +82,7 @@
             android:paddingStart="@dimen/padding_small"
             android:paddingEnd="@dimen/padding_small"
             android:text="@string/bitcoin"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_x_small"
-            android:textStyle="bold"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -101,9 +98,7 @@
             android:paddingStart="@dimen/padding_small"
             android:paddingEnd="@dimen/padding_small"
             android:text="@string/default_per"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_x_small"
-            android:textStyle="bold"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvName"
             app:layout_constraintTop_toTopOf="parent" />
@@ -126,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/high_24h"
-            android:textSize="@dimen/text_size_small"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/low_24h"
-            android:textSize="@dimen/text_size_small"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -145,7 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:text="@string/circ_sup"
-            android:textSize="@dimen/text_size_small"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvHighPrice" />
@@ -156,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:text="@string/tot_vol"
-            android:textSize="@dimen/text_size_small"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvCirculatingSupply" />
@@ -167,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:text="@string/market_cap"
-            android:textSize="@dimen/text_size_small"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTotalVolume" />
@@ -178,7 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium"
             android:text="@string/cap_rank_1"
-            android:textSize="@dimen/text_size_small"
+            android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMarketCap" />
