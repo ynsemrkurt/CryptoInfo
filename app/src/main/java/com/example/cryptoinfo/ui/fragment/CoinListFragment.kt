@@ -37,7 +37,6 @@ class CoinListFragment : Fragment() {
 
         setupRecyclerView()
         observeCoins()
-        observeChartData()
         observeError()
 
         binding.etSearch.addTextChangedListener { text ->
@@ -66,12 +65,6 @@ class CoinListFragment : Fragment() {
             coinList = coins
             adapter.submitList(coins)
             viewModel.fetchAndDisplayAllCharts(coins.map { it.id })
-        }
-    }
-
-    private fun observeChartData() {
-        viewModel.chartData.observe(viewLifecycleOwner) { _ ->
-            adapter.notifyDataSetChanged()
         }
     }
 
