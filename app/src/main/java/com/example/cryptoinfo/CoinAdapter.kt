@@ -50,6 +50,24 @@ class CoinAdapter(
 
             binding.root.startAnimation(fadeIn)
 
+            setCoinInfo(coin, formattedChange)
+            observeChartData(coin, colorResId)
+
+            itemView.setOnClickListener {
+                onCoinClick(coin, chart)
+            }
+        }
+
+        private fun observeChartData(coin: Coin, colorResId: Int) {
+            viewModel.chartData.observeForever { chartDataMap ->
+                chart = chartDataMap[coin.id]?.prices?.filterIndexed { index, _ -> index % 10 == 0 }
+                chart?.let {
+                    showChart(it, colorResId)
+                }
+            }
+        }
+
+        private fun setCoinInfo(coin: Coin, formattedChange: String) {
             with(binding) {
                 tvSymbol.text = coin.symbol
                 tvPrice.text = context.getString(
@@ -58,17 +76,6 @@ class CoinAdapter(
                 )
                 tvPercent.text = context.getString(R.string.per_format, formattedChange)
                 Glide.with(context).load(coin.image).into(ivCoin)
-            }
-
-            viewModel.chartData.observeForever { chartDataMap ->
-                chart = chartDataMap[coin.id]?.prices?.filterIndexed { index, _ -> index % 10 == 0 }
-                chart?.let {
-                    showChart(it, colorResId)
-                }
-            }
-
-            itemView.setOnClickListener {
-                onCoinClick(coin, chart)
             }
         }
 
