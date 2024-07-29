@@ -1,6 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.CryptoInfo" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Colors -->
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@color/white</item>
