@@ -152,8 +152,7 @@ class CoinDetailFragment : Fragment() {
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-                    binding.ivSymbol.setImageDrawable(null)
-                    binding.tvSymbol.text = getString(R.string.image_not_available)
+                    // Not used
                 }
             })
     }
