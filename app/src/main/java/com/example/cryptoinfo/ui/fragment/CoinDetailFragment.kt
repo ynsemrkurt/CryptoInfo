@@ -6,7 +6,6 @@ import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +24,7 @@ import com.example.cryptoinfo.R
 import com.example.cryptoinfo.data.model.Coin
 import com.example.cryptoinfo.databinding.FragmentCoinDetailBinding
 import com.example.cryptoinfo.utils.ColorUtils
+import com.example.cryptoinfo.utils.getColorFromTheme
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -68,7 +68,7 @@ class CoinDetailFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        loadImageAndSetColor(coin.image)
+        loadImage(coin.image)
     }
 
     private fun showChart(chartData: List<List<Float>>, @ColorRes chartColor: Int) {
@@ -76,7 +76,7 @@ class CoinDetailFragment : Fragment() {
 
         val entries = chartData.map { Entry(it[0], it[1]) }
         val dataSet = LineDataSet(entries, null)
-        val textColor = android.R.attr.textColor.getColorFromTheme()
+        val textColor = android.R.attr.textColor.getColorFromTheme(requireContext())
 
         val chartColorValue = ContextCompat.getColor(binding.root.context, chartColor)
         dataSet.color = chartColorValue
@@ -118,13 +118,6 @@ class CoinDetailFragment : Fragment() {
         lineChart.invalidate()
     }
 
-    // Extension function to get color from theme
-    private fun Int.getColorFromTheme(): Int {
-        val typedValue = TypedValue()
-        requireContext().theme.resolveAttribute(this, typedValue, true)
-        return typedValue.data
-    }
-
     private fun setViews(coin: Coin) {
         with(binding) {
             tvSymbol.text = getString(R.string.coin_usd, coin.symbol)
@@ -143,7 +136,7 @@ class CoinDetailFragment : Fragment() {
         }
     }
 
-    private fun loadImageAndSetColor(url: String) {
+    private fun loadImage(url: String) {
         Glide.with(this)
             .load(url)
             .into(object : CustomTarget<Drawable>() {
@@ -154,23 +147,25 @@ class CoinDetailFragment : Fragment() {
                     val bitmap = resource.toBitmap()
                     Palette.from(bitmap).generate { palette ->
                         val dominantColor = palette?.getDominantColor(Color.BLACK) ?: Color.BLACK
-                        val changeColor = ContextCompat.getColor(
-                            requireContext(),
-                            colorResId
-                        )
-
-                        applyGradientToTextView(binding.tvSymbol, dominantColor, changeColor)
-
-                        binding.tvName.backgroundTintList = ColorStateList.valueOf(dominantColor)
+                        onImageLoaded(resource, dominantColor)
                     }
-                    binding.ivSymbol.setImageDrawable(resource)
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-                    // TODO: Handle placeholder if needed
+                    binding.ivSymbol.setImageDrawable(null)
+                    binding.tvSymbol.text = getString(R.string.image_not_available)
                 }
             })
     }
+
+    private fun onImageLoaded(resource: Drawable, dominantColor: Int) {
+        val changeColor = ContextCompat.getColor(requireContext(), colorResId)
+
+        applyGradientToTextView(binding.tvSymbol, dominantColor, changeColor)
+        binding.tvName.backgroundTintList = ColorStateList.valueOf(dominantColor)
+        binding.ivSymbol.setImageDrawable(resource)
+    }
+
 
     private fun applyGradientToTextView(textView: TextView, startColor: Int, endColor: Int) {
         val shader = LinearGradient(
