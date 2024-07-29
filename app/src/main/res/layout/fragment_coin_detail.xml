@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CoinDetailFragment"
+    tools:context=".ui.fragment.CoinDetailFragment"
     android:background="?color">
 
     <ImageButton
@@ -83,6 +83,7 @@
             android:paddingEnd="@dimen/padding_small"
             android:text="@string/bitcoin"
             android:textAppearance="?textAppearanceBodyMedium"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -99,6 +100,7 @@
             android:paddingEnd="@dimen/padding_small"
             android:text="@string/default_per"
             android:textAppearance="?textAppearanceBodyMedium"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvName"
             app:layout_constraintTop_toTopOf="parent" />

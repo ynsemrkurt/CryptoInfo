@@ -1,9 +1,13 @@
-package com.example.cryptoinfo
+package com.example.cryptoinfo.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cryptoinfo.data.model.Coin
+import com.example.cryptoinfo.data.model.MarketChartResponse
+import com.example.cryptoinfo.data.network.RetrofitInstance
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 

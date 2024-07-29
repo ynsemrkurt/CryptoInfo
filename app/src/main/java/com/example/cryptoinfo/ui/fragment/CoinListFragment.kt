@@ -1,4 +1,4 @@
-package com.example.cryptoinfo
+package com.example.cryptoinfo.ui.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -10,7 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.example.cryptoinfo.R
+import com.example.cryptoinfo.data.model.Coin
+import com.example.cryptoinfo.data.model.MarketChartResponse
 import com.example.cryptoinfo.databinding.FragmentCoinListBinding
+import com.example.cryptoinfo.ui.viewmodel.CoinViewModel
+import com.example.cryptoinfo.ui.adapter.CoinAdapter
 
 class CoinListFragment : Fragment() {
 

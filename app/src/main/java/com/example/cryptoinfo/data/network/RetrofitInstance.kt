@@ -1,4 +1,4 @@
-package com.example.cryptoinfo
+package com.example.cryptoinfo.data.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

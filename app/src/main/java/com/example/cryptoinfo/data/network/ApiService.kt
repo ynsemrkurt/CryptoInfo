@@ -1,5 +1,7 @@
-package com.example.cryptoinfo
+package com.example.cryptoinfo.data.network
 
+import com.example.cryptoinfo.data.model.Coin
+import com.example.cryptoinfo.data.model.MarketChartResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

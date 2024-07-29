@@ -1,4 +1,4 @@
-package com.example.cryptoinfo
+package com.example.cryptoinfo.ui.fragment
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -21,6 +21,8 @@ import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.cryptoinfo.R
+import com.example.cryptoinfo.data.model.Coin
 import com.example.cryptoinfo.databinding.FragmentCoinDetailBinding
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis

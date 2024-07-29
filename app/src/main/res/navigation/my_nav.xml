@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/coinListFragment"
-        android:name="com.example.cryptoinfo.CoinListFragment"
+        android:name="com.example.cryptoinfo.ui.fragment.CoinListFragment"
         android:label="fragment_coin_list"
         tools:layout="@layout/fragment_coin_list" >
         <action
@@ -17,14 +17,14 @@
 
     <fragment
         android:id="@+id/coinDetailFragment"
-        android:name="com.example.cryptoinfo.CoinDetailFragment"
+        android:name="com.example.cryptoinfo.ui.fragment.CoinDetailFragment"
         android:label="fragment_coin_detail"
         tools:layout="@layout/fragment_coin_detail">
         <argument
             android:name="coin"
-            app:argType="com.example.cryptoinfo.Coin"/>
+            app:argType="com.example.cryptoinfo.data.model.Coin"/>
         <argument
             android:name="marketChartResponse"
-            app:argType="com.example.cryptoinfo.MarketChartResponse"/>
+            app:argType="com.example.cryptoinfo.data.model.MarketChartResponse"/>
     </fragment>
 </navigation>

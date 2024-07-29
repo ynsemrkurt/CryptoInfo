@@ -1,4 +1,4 @@
-package com.example.cryptoinfo
+package com.example.cryptoinfo.ui.adapter
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.cryptoinfo.R
+import com.example.cryptoinfo.data.model.Coin
 import com.example.cryptoinfo.databinding.ItemCoinBinding
+import com.example.cryptoinfo.ui.viewmodel.CoinViewModel
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -70,24 +73,19 @@ class CoinAdapter(
         private fun setCoinInfo(coin: Coin, formattedChange: String) {
             with(binding) {
                 tvSymbol.text = coin.symbol
-                tvPrice.text = context.getString(
-                    R.string.dollar_format,
-                    coin.currentPrice.toString()
-                )
+                tvPrice.text =
+                    context.getString(R.string.dollar_format, coin.currentPrice.toString())
                 tvPercent.text = context.getString(R.string.per_format, formattedChange)
                 Glide.with(context).load(coin.image).into(ivCoin)
             }
         }
 
         private fun setColorBasedOnChange(percentageChange: Double): Int {
-            val colorResId =
-                if (percentageChange < 0) {
-                    R.color.app_red
-                } else if (percentageChange > 0) {
-                    R.color.app_green
-                } else {
-                    R.color.app_gray
-                }
+            val colorResId = when {
+                percentageChange < 0 -> R.color.app_red
+                percentageChange > 0 -> R.color.app_green
+                else -> R.color.app_gray
+            }
             val color = ContextCompat.getColor(context, colorResId)
             with(binding) {
                 tvPercent.backgroundTintList = ColorStateList.valueOf(color)
