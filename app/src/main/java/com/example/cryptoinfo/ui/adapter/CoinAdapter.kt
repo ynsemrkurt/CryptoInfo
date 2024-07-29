@@ -1,6 +1,5 @@
 package com.example.cryptoinfo.ui.adapter
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -14,6 +13,7 @@ import com.example.cryptoinfo.R
 import com.example.cryptoinfo.data.model.Coin
 import com.example.cryptoinfo.databinding.ItemCoinBinding
 import com.example.cryptoinfo.ui.viewmodel.CoinViewModel
+import com.example.cryptoinfo.utils.ColorUtils
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -49,7 +49,12 @@ class CoinAdapter(
             val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
             val percentageChange = coin.priceChangePercentage24h
             val formattedChange = String.format(Locale.getDefault(), "%.2f", percentageChange)
-            val colorResId = setColorBasedOnChange(percentageChange)
+            val colorResId = ColorUtils.setColorBasedOnChange(
+                percentageChange,
+                context,
+                binding.tvPercent,
+                binding.tvPrice
+            )
 
             binding.root.startAnimation(fadeIn)
 
@@ -78,20 +83,6 @@ class CoinAdapter(
                 tvPercent.text = context.getString(R.string.per_format, formattedChange)
                 Glide.with(context).load(coin.image).into(ivCoin)
             }
-        }
-
-        private fun setColorBasedOnChange(percentageChange: Double): Int {
-            val colorResId = when {
-                percentageChange < 0 -> R.color.app_red
-                percentageChange > 0 -> R.color.app_green
-                else -> R.color.app_gray
-            }
-            val color = ContextCompat.getColor(context, colorResId)
-            with(binding) {
-                tvPercent.backgroundTintList = ColorStateList.valueOf(color)
-                tvPrice.setTextColor(color)
-            }
-            return colorResId
         }
 
         private fun showChart(chartData: List<List<Float>>, @ColorRes chartColor: Int) {

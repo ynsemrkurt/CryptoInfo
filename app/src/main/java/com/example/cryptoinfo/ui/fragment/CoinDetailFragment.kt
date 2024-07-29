@@ -24,6 +24,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.cryptoinfo.R
 import com.example.cryptoinfo.data.model.Coin
 import com.example.cryptoinfo.databinding.FragmentCoinDetailBinding
+import com.example.cryptoinfo.utils.ColorUtils
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
@@ -38,6 +39,7 @@ class CoinDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentCoinDetailBinding
     private val args: CoinDetailFragmentArgs by navArgs()
+    private var colorResId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +54,12 @@ class CoinDetailFragment : Fragment() {
 
         val coin = args.coin
         val marketChartResponse = args.marketChartResponse
-        val colorResId = setColorBasedOnChange(coin.priceChangePercentage24h)
+        colorResId = ColorUtils.setColorBasedOnChange(
+            coin.priceChangePercentage24h,
+            requireContext(),
+            binding.tvPercent,
+            binding.tvPrice
+        )
 
         setViews(coin)
         showChart(marketChartResponse.prices, colorResId)
@@ -118,19 +125,6 @@ class CoinDetailFragment : Fragment() {
         return typedValue.data
     }
 
-
-    private fun setColorBasedOnChange(percentageChange: Double): Int {
-        val colorResId = when {
-            percentageChange < 0 -> R.color.app_red
-            percentageChange > 0 -> R.color.app_green
-            else -> R.color.app_gray
-        }
-        val color = ContextCompat.getColor(requireContext(), colorResId)
-        binding.tvPercent.backgroundTintList = ColorStateList.valueOf(color)
-        binding.tvPrice.setTextColor(color)
-        return colorResId
-    }
-
     private fun setViews(coin: Coin) {
         with(binding) {
             tvSymbol.text = getString(R.string.coin_usd, coin.symbol)
@@ -162,7 +156,7 @@ class CoinDetailFragment : Fragment() {
                         val dominantColor = palette?.getDominantColor(Color.BLACK) ?: Color.BLACK
                         val changeColor = ContextCompat.getColor(
                             requireContext(),
-                            setColorBasedOnChange(args.coin.priceChangePercentage24h)
+                            colorResId
                         )
 
                         applyGradientToTextView(binding.tvSymbol, dominantColor, changeColor)
