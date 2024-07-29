@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.cryptoinfo.data.model.Coin
 import com.example.cryptoinfo.data.model.MarketChartResponse
 import com.example.cryptoinfo.data.network.RetrofitInstance
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
@@ -31,32 +30,33 @@ class CoinViewModel : ViewModel() {
             try {
                 val coinList = RetrofitInstance.coinApiService.getCoins("usd", 5)
                 _coins.postValue(coinList)
-                fetchAndDisplayAllCharts(coinList.map { it.id })
+                val charts = mutableMapOf<String, MarketChartResponse>()
+
+                coinList.forEach { coin ->
+                    fetchMarketChart(coin, charts)
+                }
             } catch (e: Exception) {
                 _error.value = e.message
             }
         }
     }
 
-    fun fetchAndDisplayAllCharts(coinIds: List<String>) {
+    private fun fetchMarketChart(coin: Coin, charts: MutableMap<String, MarketChartResponse>) {
         viewModelScope.launch {
             try {
-                val charts = mutableMapOf<String, MarketChartResponse>()
                 val now = System.currentTimeMillis() / 1000
                 val oneDayAgo = now - TimeUnit.DAYS.toSeconds(1)
 
-                for (coinId in coinIds) {
-                    val response = RetrofitInstance.coinApiService.getMarketChart(
-                        coinId,
-                        "usd",
-                        oneDayAgo.toInt(),
-                        now.toInt()
-                    )
-                    val chartDataList = response.prices.map {
-                        listOf(it[0], it[1])
-                    }
-                    charts[coinId] = MarketChartResponse(chartDataList)
+                val response = RetrofitInstance.coinApiService.getMarketChart(
+                    coin.id,
+                    "usd",
+                    oneDayAgo.toInt(),
+                    now.toInt()
+                )
+                val chartDataList = response.prices.map {
+                    listOf(it[0], it[1])
                 }
+                charts[coin.id] = MarketChartResponse(chartDataList)
                 _chartData.postValue(charts)
             } catch (e: Exception) {
                 _error.value = e.message

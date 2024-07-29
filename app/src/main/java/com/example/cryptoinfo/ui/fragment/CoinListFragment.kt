@@ -64,7 +64,6 @@ class CoinListFragment : Fragment() {
         viewModel.coins.observe(viewLifecycleOwner) { coins ->
             coinList = coins
             adapter.submitList(coins)
-            viewModel.fetchAndDisplayAllCharts(coins.map { it.id })
         }
     }
 
