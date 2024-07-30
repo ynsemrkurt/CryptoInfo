@@ -91,8 +91,8 @@ class CoinAdapter(
             val lineChart: LineChart = binding.lineChart
             val entries = chartData.map { Entry(it[0], it[1]) }
             val dataSet = LineDataSet(entries, null).apply {
-                color = ContextCompat.getColor(context, chartColor)
-                setFillColor(ContextCompat.getColor(context, chartColor))
+                color = chartColor
+                setFillColor(chartColor)
                 fillAlpha = 100
                 setDrawValues(false)
                 setDrawCircles(false)

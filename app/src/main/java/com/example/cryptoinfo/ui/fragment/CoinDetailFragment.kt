@@ -54,8 +54,8 @@ class CoinDetailFragment : Fragment() {
 
         val coin = args.coin
         val marketChartResponse = args.marketChartResponse
-        val color = ColorUtils.getColorBasedOnChange(coin.priceChangePercentage24h, requireContext())
-        ColorUtils.applyColorToTextViews(color, binding.tvPercent, binding.tvPrice)
+        colorResId = ColorUtils.getColorBasedOnChange(coin.priceChangePercentage24h, requireContext())
+        ColorUtils.applyColorToTextViews(colorResId, binding.tvPercent, binding.tvPrice)
 
         setViews(coin)
         showChart(marketChartResponse.prices, colorResId)
@@ -74,9 +74,8 @@ class CoinDetailFragment : Fragment() {
         val dataSet = LineDataSet(entries, null)
         val textColor = android.R.attr.textColor.getColorFromTheme(requireContext())
 
-        val chartColorValue = ContextCompat.getColor(binding.root.context, chartColor)
-        dataSet.color = chartColorValue
-        dataSet.setFillColor(chartColorValue)
+        dataSet.color = chartColor
+        dataSet.setFillColor(chartColor)
         dataSet.fillAlpha = 100
 
         dataSet.setDrawValues(false)
@@ -154,9 +153,7 @@ class CoinDetailFragment : Fragment() {
     }
 
     private fun onImageLoaded(resource: Drawable, dominantColor: Int) {
-        val changeColor = ContextCompat.getColor(requireContext(), colorResId)
-
-        applyGradientToTextView(binding.tvSymbol, dominantColor, changeColor)
+        applyGradientToTextView(binding.tvSymbol, dominantColor, colorResId)
         binding.tvName.backgroundTintList = ColorStateList.valueOf(dominantColor)
         binding.ivSymbol.setImageDrawable(resource)
     }
