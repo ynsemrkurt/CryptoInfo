@@ -26,9 +26,11 @@ class CoinAdapter(
     private val onCoinClick: (Coin, List<List<Float>>?) -> Unit
 ) : ListAdapter<Coin, CoinAdapter.CoinViewHolder>(CoinDiffCallback()) {
 
+    private var hasAnimated = false
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
         val binding = ItemCoinBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CoinViewHolder(binding, viewModel, onCoinClick)
+        return CoinViewHolder(binding, viewModel, onCoinClick, ::hasAnimated)
     }
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
@@ -39,14 +41,20 @@ class CoinAdapter(
     class CoinViewHolder(
         private val binding: ItemCoinBinding,
         private val viewModel: CoinViewModel,
-        private val onCoinClick: (Coin, List<List<Float>>?) -> Unit
+        private val onCoinClick: (Coin, List<List<Float>>?) -> Unit,
+        private var hasAnimated: () -> Boolean
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private var chart: List<List<Float>>? = null
         private val context = binding.root.context
 
         fun bind(coin: Coin) {
-            val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+            if (!hasAnimated()) {
+                val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+                binding.root.startAnimation(fadeIn)
+                hasAnimated = { true }
+            }
+
             val percentageChange = coin.priceChangePercentage24h
             val formattedChange = String.format(Locale.getDefault(), "%.2f", percentageChange)
             val colorResId = ColorUtils.setColorBasedOnChange(
@@ -55,8 +63,6 @@ class CoinAdapter(
                 binding.tvPercent,
                 binding.tvPrice
             )
-
-            binding.root.startAnimation(fadeIn)
 
             setCoinInfo(coin, formattedChange)
             observeChartData(coin, colorResId)
