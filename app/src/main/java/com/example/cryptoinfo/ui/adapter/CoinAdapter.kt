@@ -57,12 +57,8 @@ class CoinAdapter(
 
             val percentageChange = coin.priceChangePercentage24h
             val formattedChange = String.format(Locale.getDefault(), "%.2f", percentageChange)
-            val colorResId = ColorUtils.setColorBasedOnChange(
-                percentageChange,
-                context,
-                binding.tvPercent,
-                binding.tvPrice
-            )
+            val colorResId = ColorUtils.getColorBasedOnChange(coin.priceChangePercentage24h, context)
+            ColorUtils.applyColorToTextViews(colorResId, binding.tvPercent, binding.tvPrice)
 
             setCoinInfo(coin, formattedChange)
             observeChartData(coin, colorResId)

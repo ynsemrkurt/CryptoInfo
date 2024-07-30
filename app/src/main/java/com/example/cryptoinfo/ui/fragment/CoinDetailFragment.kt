@@ -54,12 +54,8 @@ class CoinDetailFragment : Fragment() {
 
         val coin = args.coin
         val marketChartResponse = args.marketChartResponse
-        colorResId = ColorUtils.setColorBasedOnChange(
-            coin.priceChangePercentage24h,
-            requireContext(),
-            binding.tvPercent,
-            binding.tvPrice
-        )
+        val color = ColorUtils.getColorBasedOnChange(coin.priceChangePercentage24h, requireContext())
+        ColorUtils.applyColorToTextViews(color, binding.tvPercent, binding.tvPrice)
 
         setViews(coin)
         showChart(marketChartResponse.prices, colorResId)

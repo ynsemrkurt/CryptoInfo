@@ -7,20 +7,21 @@ import androidx.core.content.ContextCompat
 import com.example.cryptoinfo.R
 
 object ColorUtils {
-    fun setColorBasedOnChange(
-        percentageChange: Double,
-        context: Context,
-        tvPercent: TextView,
-        tvPrice: TextView
-    ): Int {
-        val colorResId = when {
+
+    fun getColorBasedOnChange(percentageChange: Double, context: Context): Int {
+        return when {
             percentageChange < 0 -> R.color.app_red
             percentageChange > 0 -> R.color.app_green
             else -> R.color.app_gray
-        }
-        val color = ContextCompat.getColor(context, colorResId)
+        }.let { ContextCompat.getColor(context, it) }
+    }
+
+    fun applyColorToTextViews(
+        color: Int,
+        tvPercent: TextView,
+        tvPrice: TextView
+    ) {
         tvPercent.backgroundTintList = ColorStateList.valueOf(color)
         tvPrice.setTextColor(color)
-        return colorResId
     }
 }
