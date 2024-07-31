@@ -1,5 +1,6 @@
 package com.example.cryptoinfo.data.network
 
+import com.example.cryptoinfo.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -7,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
     private const val BASE_URL = "https://api.coingecko.com/api/v3/"
-    private const val API_KEY = "CG-4m5NyFPDGM3665dSMGadbJFV"
+    private const val API_KEY = BuildConfig.API_KEY
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
