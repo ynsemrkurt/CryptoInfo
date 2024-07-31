@@ -6,9 +6,13 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Coin(
+    @SerializedName("id")
     val id: String,
+    @SerializedName("symbol")
     val symbol: String,
+    @SerializedName("name")
     val name: String,
+    @SerializedName("image")
     val image: String,
     @SerializedName("current_price")
     val currentPrice: Double,
@@ -32,5 +36,6 @@ data class Coin(
 
 @Parcelize
 data class MarketChartResponse(
+    @SerializedName("prices")
     val prices: List<List<Float>>
 ) : Parcelable
