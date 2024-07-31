@@ -86,4 +86,7 @@ dependencies {
 
     //Palette
     implementation(libs.androidx.palette)
+
+    //Add
+    implementation(libs.play.services.ads)
 }
