@@ -16,6 +16,12 @@ import com.example.cryptoinfo.data.model.MarketChartResponse
 import com.example.cryptoinfo.databinding.FragmentCoinListBinding
 import com.example.cryptoinfo.ui.adapter.CoinAdapter
 import com.example.cryptoinfo.ui.viewmodel.CoinViewModel
+import com.example.cryptoinfo.utils.AdUtils
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CoinListFragment : Fragment() {
 
@@ -36,6 +42,7 @@ class CoinListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        AdUtils.loadAds(requireContext(), binding.adView)
         setupRecyclerView()
         observeCoins()
         observeChartData()

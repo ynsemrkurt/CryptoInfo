@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -23,6 +22,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.cryptoinfo.R
 import com.example.cryptoinfo.data.model.Coin
 import com.example.cryptoinfo.databinding.FragmentCoinDetailBinding
+import com.example.cryptoinfo.utils.AdUtils
 import com.example.cryptoinfo.utils.ColorUtils
 import com.example.cryptoinfo.utils.getColorFromTheme
 import com.github.mikephil.charting.charts.LineChart
@@ -54,9 +54,11 @@ class CoinDetailFragment : Fragment() {
 
         val coin = args.coin
         val marketChartResponse = args.marketChartResponse
-        colorResId = ColorUtils.getColorBasedOnChange(coin.priceChangePercentage24h, requireContext())
+        colorResId =
+            ColorUtils.getColorBasedOnChange(coin.priceChangePercentage24h, requireContext())
         ColorUtils.applyColorToTextViews(colorResId, binding.tvPercent, binding.tvPrice)
 
+        AdUtils.loadAds(requireContext(), binding.adView)
         setViews(coin)
         showChart(marketChartResponse.prices, colorResId)
 
