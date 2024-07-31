@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.example.cryptoinfo.R
 import com.example.cryptoinfo.data.model.Coin
 import com.example.cryptoinfo.databinding.ItemCoinBinding
-import com.example.cryptoinfo.ui.viewmodel.CoinViewModel
 import com.example.cryptoinfo.utils.ColorUtils
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
@@ -22,58 +20,50 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import java.util.Locale
 
 class CoinAdapter(
-    private val viewModel: CoinViewModel,
     private val onCoinClick: (Coin, List<List<Float>>?) -> Unit
 ) : ListAdapter<Coin, CoinAdapter.CoinViewHolder>(CoinDiffCallback()) {
 
-    private var hasAnimated = false
+    private var chartDataMap: Map<String, List<List<Float>>> = emptyMap()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinViewHolder {
         val binding = ItemCoinBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CoinViewHolder(binding, viewModel, onCoinClick, ::hasAnimated)
+        return CoinViewHolder(binding, onCoinClick)
     }
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
         val coin = getItem(position)
-        holder.bind(coin)
+        holder.bind(coin, chartDataMap[coin.id])
+    }
+
+    fun setChartData(chartData: Map<String, List<List<Float>>>) {
+        chartDataMap = chartData
+        notifyItemRangeChanged(0, itemCount)
     }
 
     class CoinViewHolder(
         private val binding: ItemCoinBinding,
-        private val viewModel: CoinViewModel,
-        private val onCoinClick: (Coin, List<List<Float>>?) -> Unit,
-        private var hasAnimated: () -> Boolean
+        private val onCoinClick: (Coin, List<List<Float>>?) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        private var chart: List<List<Float>>? = null
         private val context = binding.root.context
 
-        fun bind(coin: Coin) {
-            if (!hasAnimated()) {
-                val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
-                binding.root.startAnimation(fadeIn)
-                hasAnimated = { true }
-            }
+        fun bind(coin: Coin, chartData: List<List<Float>>?) {
+            val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+            binding.root.startAnimation(fadeIn)
 
             val percentageChange = coin.priceChangePercentage24h
             val formattedChange = String.format(Locale.getDefault(), "%.2f", percentageChange)
-            val colorResId = ColorUtils.getColorBasedOnChange(coin.priceChangePercentage24h, context)
+            val colorResId =
+                ColorUtils.getColorBasedOnChange(coin.priceChangePercentage24h, context)
             ColorUtils.applyColorToTextViews(colorResId, binding.tvPercent, binding.tvPrice)
 
             setCoinInfo(coin, formattedChange)
-            observeChartData(coin, colorResId)
+            chartData?.let {
+                showChart(it, colorResId)
+            }
 
             itemView.setOnClickListener {
-                onCoinClick(coin, chart)
-            }
-        }
-
-        private fun observeChartData(coin: Coin, colorResId: Int) {
-            viewModel.chartData.observeForever { chartDataMap ->
-                chart = chartDataMap[coin.id]?.prices?.filterIndexed { index, _ -> index % 10 == 0 }
-                chart?.let {
-                    showChart(it, colorResId)
-                }
+                onCoinClick(coin, chartData)
             }
         }
 
@@ -139,14 +129,14 @@ class CoinAdapter(
             }
         }
     }
-}
 
-class CoinDiffCallback : DiffUtil.ItemCallback<Coin>() {
-    override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
-        return oldItem.id == newItem.id
-    }
+    class CoinDiffCallback : DiffUtil.ItemCallback<Coin>() {
+        override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
+            return oldItem == newItem
+        }
     }
 }

@@ -14,8 +14,8 @@ import com.example.cryptoinfo.R
 import com.example.cryptoinfo.data.model.Coin
 import com.example.cryptoinfo.data.model.MarketChartResponse
 import com.example.cryptoinfo.databinding.FragmentCoinListBinding
-import com.example.cryptoinfo.ui.viewmodel.CoinViewModel
 import com.example.cryptoinfo.ui.adapter.CoinAdapter
+import com.example.cryptoinfo.ui.viewmodel.CoinViewModel
 
 class CoinListFragment : Fragment() {
 
@@ -23,6 +23,7 @@ class CoinListFragment : Fragment() {
     private lateinit var binding: FragmentCoinListBinding
     private lateinit var adapter: CoinAdapter
     private var coinList = listOf<Coin>()
+    private var chartDataMap = mapOf<String, List<List<Float>>>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +38,7 @@ class CoinListFragment : Fragment() {
 
         setupRecyclerView()
         observeCoins()
+        observeChartData()
         observeError()
 
         binding.etSearch.addTextChangedListener { text ->
@@ -45,7 +47,7 @@ class CoinListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = CoinAdapter(viewModel) { coin, chart ->
+        adapter = CoinAdapter { coin, chart ->
             val marketChartResponse = MarketChartResponse(chart ?: emptyList())
             val action =
                 CoinListFragmentDirections.goToCoinDetailFragment(coin, marketChartResponse)
@@ -64,6 +66,13 @@ class CoinListFragment : Fragment() {
         viewModel.coins.observe(viewLifecycleOwner) { coins ->
             coinList = coins
             adapter.submitList(coins)
+        }
+    }
+
+    private fun observeChartData() {
+        viewModel.chartData.observe(viewLifecycleOwner) { chartData ->
+            chartDataMap = chartData.mapValues { it.value.prices }
+            adapter.setChartData(chartDataMap)
         }
     }
 

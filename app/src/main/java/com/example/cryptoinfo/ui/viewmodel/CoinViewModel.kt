@@ -53,9 +53,7 @@ class CoinViewModel : ViewModel() {
                     oneDayAgo.toInt(),
                     now.toInt()
                 )
-                val chartDataList = response.prices.map {
-                    listOf(it[0], it[1])
-                }
+                val chartDataList = response.prices.filterIndexed { index, _ -> index % 10 == 0 }
                 charts[coin.id] = MarketChartResponse(chartDataList)
                 _chartData.postValue(charts)
             } catch (e: Exception) {
