@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Typography -->
+    <style name="LargeTitleStyle">
+        <item name="android:textSize">@dimen/text_size_xxx_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MediumTitleStyle">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SmallTitleStyle">
+        <item name="android:textSize">@dimen/text_size_medium_ver_2</item>
+    </style>
+
+    <style name="LargeBodyTextStyle">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    
+    <style name="MediumBodyTextStyle">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="SmallBodyTextStyle">
+        <item name="android:textSize">@dimen/text_size_x_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    
+</resources>
