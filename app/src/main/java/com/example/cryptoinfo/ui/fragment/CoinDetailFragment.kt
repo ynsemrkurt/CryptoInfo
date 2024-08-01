@@ -87,6 +87,10 @@ class CoinDetailFragment : Fragment() {
         val lineData = LineData(dataSet)
         lineChart.data = lineData
 
+        configureChartAppearance(lineChart, textColor)
+    }
+
+    private fun configureChartAppearance(lineChart: LineChart, @ColorRes textColor: Int) {
         lineChart.xAxis.apply {
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
