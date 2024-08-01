@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Crypto Info</string>
+    <string name="unexpected_error">Unexpected Error: %1$s</string>
+    <string name="error">Error</string>
+    <string name="per_format">%1$s%%</string>
+    <string name="ok">OK</string>
+    <string name="default_dollars">$3042.04</string>
+    <string name="default_coin">BTC</string>
+    <string name="default_per">+10%</string>
+    <string name="coin_symbol">Coin symbol</string>
+    <string name="search">Search</string>
+    <string name="def_coin">BTC/USD</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="cap_rank_1">Cap Rank: 1</string>
+    <string name="market_cap">Market Cap: 21000000</string>
+    <string name="tot_vol">Tot. Vol: 21000000</string>
+    <string name="circ_sup">Circ. Sup: 19675987</string>
+    <string name="low_24h">24H Low: $304.04</string>
+    <string name="high_24h">24H High: $3042.04</string>
+    <string name="coin_usd">%1$s/USD</string>
+    <string name="high_24h_format">24H High: $%1$s</string>
+    <string name="low_24h_format">24H Low: $%1$s</string>
+    <string name="circ_supply_format">Circ. Supply: %1$s</string>
+    <string name="tot_volume_format">Tot. Volume: %1$s</string>
+    <string name="market_cap_format">Market Cap: %1$s</string>
+    <string name="market_cap_rank_format">Market Cap Rank: %1$s</string>
+    <string name="dollar_format">$%1$s</string>
+    <string name="search_string">Search</string>
+    <string name="image_not_available">Image not available</string>
 </resources>
