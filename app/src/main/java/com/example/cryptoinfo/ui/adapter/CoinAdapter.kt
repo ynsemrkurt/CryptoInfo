@@ -67,14 +67,12 @@ class CoinAdapter(
             }
         }
 
-        private fun setCoinInfo(coin: Coin, formattedChange: String) {
-            with(binding) {
-                tvSymbol.text = coin.symbol
-                tvPrice.text =
-                    context.getString(R.string.dollar_format, coin.currentPrice.toString())
-                tvPercent.text = context.getString(R.string.per_format, formattedChange)
-                Glide.with(context).load(coin.image).into(ivCoin)
-            }
+        private fun setCoinInfo(coin: Coin, formattedChange: String) = with(binding) {
+            tvSymbol.text = coin.symbol
+            tvPrice.text =
+                context.getString(R.string.dollar_format, coin.currentPrice.toString())
+            tvPercent.text = context.getString(R.string.per_format, formattedChange)
+            Glide.with(context).load(coin.image).into(ivCoin)
         }
 
         private fun showChart(chartData: List<List<Float>>, @ColorRes chartColor: Int) {

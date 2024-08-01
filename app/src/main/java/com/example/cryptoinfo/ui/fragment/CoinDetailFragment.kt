@@ -115,22 +115,20 @@ class CoinDetailFragment : Fragment() {
         lineChart.invalidate()
     }
 
-    private fun setViews(coin: Coin) {
-        with(binding) {
-            tvSymbol.text = getString(R.string.coin_usd, coin.symbol)
-            tvPrice.text = getString(R.string.dollar_format, coin.currentPrice.toString())
-            tvName.text = coin.name
-            tvHighPrice.text = getString(R.string.high_24h_format, coin.high24h.toString())
-            tvLowPrice.text = getString(R.string.low_24h_format, coin.low24h.toString())
-            tvCirculatingSupply.text =
-                getString(R.string.circ_supply_format, coin.circulatingSupply.toString())
-            tvTotalVolume.text = getString(R.string.tot_volume_format, coin.totalVolume.toString())
-            tvMarketCap.text = getString(R.string.market_cap_format, coin.marketCap.toString())
-            tvMarketCapRank.text =
-                getString(R.string.market_cap_rank_format, coin.marketCapRank.toString())
-            tvPercent.text =
-                getString(R.string.per_format, coin.priceChangePercentage24h.toString())
-        }
+    private fun setViews(coin: Coin) = with(binding) {
+        tvSymbol.text = getString(R.string.coin_usd, coin.symbol)
+        tvPrice.text = getString(R.string.dollar_format, coin.currentPrice.toString())
+        tvName.text = coin.name
+        tvHighPrice.text = getString(R.string.high_24h_format, coin.high24h.toString())
+        tvLowPrice.text = getString(R.string.low_24h_format, coin.low24h.toString())
+        tvCirculatingSupply.text =
+            getString(R.string.circ_supply_format, coin.circulatingSupply.toString())
+        tvTotalVolume.text = getString(R.string.tot_volume_format, coin.totalVolume.toString())
+        tvMarketCap.text = getString(R.string.market_cap_format, coin.marketCap.toString())
+        tvMarketCapRank.text =
+            getString(R.string.market_cap_rank_format, coin.marketCapRank.toString())
+        tvPercent.text =
+            getString(R.string.per_format, coin.priceChangePercentage24h.toString())
     }
 
     private fun loadImage(url: String) {
